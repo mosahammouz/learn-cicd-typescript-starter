@@ -1,8 +1,7 @@
-import { getAPIKey } from "../api/auth.js";
+import { getAPIKey } from "../api/auth";  // no .js extension
 import { describe, test, expect } from "vitest";
 
 describe("getAPIKey", () => {
-
   test("returns null if headers are empty", () => {
     const headers = {};
     expect(getAPIKey(headers)).toBeNull();
@@ -27,5 +26,4 @@ describe("getAPIKey", () => {
     const headers = { "authorization": "ApiKey" };
     expect(getAPIKey(headers)).toBeNull();
   });
-
 });
