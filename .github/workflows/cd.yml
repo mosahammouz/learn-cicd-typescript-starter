@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  Deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,16 +28,14 @@ jobs:
         run: npm run build
 
       # 5️⃣ Authenticate with GCP using service account
-      - name: Authenticate with GCP
-        uses: google-github-actions/auth@v1
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v1
         with:
-          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+          project_id: notely-488018
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          export_default_credentials: true
 
-      # 6️⃣ Set default project
-      - name: Set GCP project
-        run: gcloud config set project notely-488018
-
-      # 7️⃣ Build & Push Docker image
+      # 6️⃣ Build & Push Docker image
       - name: Build & Push Docker Image
         run: |
           gcloud builds submit \
