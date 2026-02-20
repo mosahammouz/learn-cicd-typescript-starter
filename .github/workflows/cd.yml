@@ -27,7 +27,11 @@ jobs:
       - name: Build app
         run: npm run build
 
+<<<<<<< HEAD
       # 5️⃣ Authenticate with GCP
+=======
+      # 5️⃣ Authenticate with GCP using service account
+>>>>>>> addtests
       - name: Setup gcloud
         uses: google-github-actions/setup-gcloud@v1
         with:
@@ -35,7 +39,11 @@ jobs:
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
           export_default_credentials: true
 
+<<<<<<< HEAD
       # 6️⃣ Build & push Docker image
+=======
+      # 6️⃣ Build & Push Docker image
+>>>>>>> addtests
       - name: Build & Push Docker Image
         run: |
           gcloud builds submit \
