@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  Deploy:   # Must be capital D for checker
+  Deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22'
+          node-version: '20'   # safer version than 22
 
       # 3️⃣ Install dependencies
       - name: Install dependencies
@@ -35,7 +35,13 @@ jobs:
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
           export_default_credentials: true
 
+      # Optional: verify gcloud account
+      - name: Check gcloud auth
+        run: gcloud auth list
+
       # 6️⃣ Build & Push Docker image
       - name: Build & Push Docker Image
         run: |
           gcloud builds submit --tag us-central1-docker.pkg.dev/notely-488018/notely-ar-repo/notely:v1 .
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
