@@ -1,4 +1,4 @@
-import { getAPIKey } from "../api/auth";  // no .js extension
+import { getAPIKey } from "../api/auth"; // no .js extension
 import { describe, test, expect } from "vitest";
 
 describe("getAPIKey", () => {
@@ -13,17 +13,17 @@ describe("getAPIKey", () => {
   });
 
   test("returns null if authorization header is malformed", () => {
-    const headers = { "authorization": "Bearer abc123" };
+    const headers = { authorization: "Bearer abc123" };
     expect(getAPIKey(headers)).toBeNull();
   });
 
   test("returns API key if header is correctly formatted", () => {
-    const headers = { "authorization": "ApiKey my-secret-key" };
+    const headers = { authorization: "ApiKey my-secret-key" };
     expect(getAPIKey(headers)).toBe("my-secret-key");
   });
 
   test("returns null if header has only 'ApiKey' without key", () => {
-    const headers = { "authorization": "ApiKey" };
+    const headers = { authorization: "ApiKey" };
     expect(getAPIKey(headers)).toBeNull();
   });
 });
